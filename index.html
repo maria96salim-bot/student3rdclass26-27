@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl"><head>
+<html lang="ar" dir="rtl">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>غيابات الطلبة</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --paper:#F1EEE4;
@@ -226,6 +227,13 @@
     display:flex;gap:8px;align-items:center;font-size:12.5px;color:var(--ink-soft);
     background:var(--paper);border:1px dashed var(--border);border-radius:8px;padding:10px 12px;margin-bottom:16px;
   }
+
+  .print-only{display:none;}
+  @media print{
+    body *{visibility:hidden;}
+    .print-only, .print-only *{visibility:visible;}
+    .print-only{position:absolute;top:0;left:0;width:100%;display:block;}
+  }
 </style>
 </head>
 <body>
@@ -240,20 +248,39 @@
       <div><b>الجامعة</b><span>جامعة سامراء</span></div>
       <div><b>المرحلة</b><span>الثالثة</span></div>
       <div><b>العام الدراسي</b><span>2026 - 2027</span></div>
-      <div><b>عدد الطلبة</b><span id="tb-count">30</span></div>
+      <div><b>عدد الطلبة</b><span id="tb-count">—</span></div>
     </div>
   </div>
 
-  <div class="tabs" id="tabs"><button class="tab-btn">استعلام ونتائج الطلبة</button><button class="tab-btn active">تسجيل الغيابات</button><button class="tab-btn" style="margin-inline-start: auto;">🔓 تسجيل خروج المحاضر</button></div>
-  <div id="app"><div><div class="panel"><h2>تسجيل غيابات أسبوع</h2><p class="hint">اختر الأسبوع، أدخل التاريخ، وأدخل عدد ساعات الغياب لكل طالب بكل مادة (تُترك 0 لمن حضر كامل الوقت)، ثم احفظ.</p><div class="row2"><div class="field"><label>الأسبوع</label><select id="week-select"><option value="1" selected="">الأسبوع 1</option><option value="2">الأسبوع 2</option><option value="3">الأسبوع 3</option><option value="4">الأسبوع 4</option><option value="5">الأسبوع 5</option><option value="6">الأسبوع 6</option><option value="7">الأسبوع 7</option><option value="8">الأسبوع 8</option><option value="9">الأسبوع 9</option><option value="10">الأسبوع 10</option><option value="11">الأسبوع 11</option><option value="12">الأسبوع 12</option><option value="13">الأسبوع 13</option><option value="14">الأسبوع 14</option><option value="15">الأسبوع 15</option></select></div><div class="field"><label>التاريخ</label><input type="date" id="week-date"></div></div><div><div class="session-block" data-course="design"><h3>التصميم المعماري <small>حد أقصى 10 ساعات أسبوعياً</small></h3><div class="hours-list"><div class="hours-row"><span class="hname">آية باسم</span><input type="number" class="hinput" data-student="آية باسم" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">احمد حسن</span><input type="number" class="hinput" data-student="احمد حسن" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">اسامة سعد</span><input type="number" class="hinput" data-student="اسامة سعد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">اسلام عمار</span><input type="number" class="hinput" data-student="اسلام عمار" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">الحسن عدي</span><input type="number" class="hinput" data-student="الحسن عدي" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">تقى وليد</span><input type="number" class="hinput" data-student="تقى وليد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">حذيفة محمد</span><input type="number" class="hinput" data-student="حذيفة محمد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">حسين حامد</span><input type="number" class="hinput" data-student="حسين حامد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">حنين خضير</span><input type="number" class="hinput" data-student="حنين خضير" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">زينب جمال</span><input type="number" class="hinput" data-student="زينب جمال" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">سارا طلال</span><input type="number" class="hinput" data-student="سارا طلال" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">سبأ نافع</span><input type="number" class="hinput" data-student="سبأ نافع" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">سما محمد</span><input type="number" class="hinput" data-student="سما محمد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">صفا عدي</span><input type="number" class="hinput" data-student="صفا عدي" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">طيبة إسماعيل</span><input type="number" class="hinput" data-student="طيبة إسماعيل" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">عبد الملك</span><input type="number" class="hinput" data-student="عبد الملك" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">علي احمد عبد المنعم</span><input type="number" class="hinput" data-student="علي احمد عبد المنعم" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">علي واثق</span><input type="number" class="hinput" data-student="علي واثق" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">عمر حاضر</span><input type="number" class="hinput" data-student="عمر حاضر" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">فاطمة بهاء</span><input type="number" class="hinput" data-student="فاطمة بهاء" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مازن حامد</span><input type="number" class="hinput" data-student="مازن حامد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">محمد عمر</span><input type="number" class="hinput" data-student="محمد عمر" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مصطفى حافظ</span><input type="number" class="hinput" data-student="مصطفى حافظ" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مصطفى محمد</span><input type="number" class="hinput" data-student="مصطفى محمد" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">ملاك غسان</span><input type="number" class="hinput" data-student="ملاك غسان" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مهند صباح</span><input type="number" class="hinput" data-student="مهند صباح" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مهيب فاضل</span><input type="number" class="hinput" data-student="مهيب فاضل" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">هاجر حيدر</span><input type="number" class="hinput" data-student="هاجر حيدر" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">هيثم زهير</span><input type="number" class="hinput" data-student="هيثم زهير" min="0" max="10" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">وليد قاسم</span><input type="number" class="hinput" data-student="وليد قاسم" min="0" max="10" step="0.5" placeholder="0" value=""></div></div></div><div class="session-block" data-course="threeds"><h3>3ds Max <small>حد أقصى 4 ساعات أسبوعياً</small></h3><div class="hours-list"><div class="hours-row"><span class="hname">آية باسم</span><input type="number" class="hinput" data-student="آية باسم" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">احمد حسن</span><input type="number" class="hinput" data-student="احمد حسن" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">اسامة سعد</span><input type="number" class="hinput" data-student="اسامة سعد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">اسلام عمار</span><input type="number" class="hinput" data-student="اسلام عمار" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">الحسن عدي</span><input type="number" class="hinput" data-student="الحسن عدي" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">تقى وليد</span><input type="number" class="hinput" data-student="تقى وليد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">حذيفة محمد</span><input type="number" class="hinput" data-student="حذيفة محمد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">حسين حامد</span><input type="number" class="hinput" data-student="حسين حامد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">حنين خضير</span><input type="number" class="hinput" data-student="حنين خضير" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">زينب جمال</span><input type="number" class="hinput" data-student="زينب جمال" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">سارا طلال</span><input type="number" class="hinput" data-student="سارا طلال" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">سبأ نافع</span><input type="number" class="hinput" data-student="سبأ نافع" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">سما محمد</span><input type="number" class="hinput" data-student="سما محمد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">صفا عدي</span><input type="number" class="hinput" data-student="صفا عدي" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">طيبة إسماعيل</span><input type="number" class="hinput" data-student="طيبة إسماعيل" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">عبد الملك</span><input type="number" class="hinput" data-student="عبد الملك" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">علي احمد عبد المنعم</span><input type="number" class="hinput" data-student="علي احمد عبد المنعم" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">علي واثق</span><input type="number" class="hinput" data-student="علي واثق" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">عمر حاضر</span><input type="number" class="hinput" data-student="عمر حاضر" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">فاطمة بهاء</span><input type="number" class="hinput" data-student="فاطمة بهاء" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مازن حامد</span><input type="number" class="hinput" data-student="مازن حامد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">محمد عمر</span><input type="number" class="hinput" data-student="محمد عمر" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مصطفى حافظ</span><input type="number" class="hinput" data-student="مصطفى حافظ" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مصطفى محمد</span><input type="number" class="hinput" data-student="مصطفى محمد" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">ملاك غسان</span><input type="number" class="hinput" data-student="ملاك غسان" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مهند صباح</span><input type="number" class="hinput" data-student="مهند صباح" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">مهيب فاضل</span><input type="number" class="hinput" data-student="مهيب فاضل" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">هاجر حيدر</span><input type="number" class="hinput" data-student="هاجر حيدر" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">هيثم زهير</span><input type="number" class="hinput" data-student="هيثم زهير" min="0" max="4" step="0.5" placeholder="0" value=""></div><div class="hours-row"><span class="hname">وليد قاسم</span><input type="number" class="hinput" data-student="وليد قاسم" min="0" max="4" step="0.5" placeholder="0" value=""></div></div></div></div><div style="display: flex; gap: 10px; margin-top: 6px;"><button class="btn">حفظ وتنزيل الملف المحدث</button></div><div class="locked-note" style="margin-top: 12px;">بعد الحفظ سينزّل المتصفح ملف <b>index.html</b> جديد يحتوي كل البيانات (القديمة + الجديدة). ارفعه إلى مستودع GitHub لتستبدل الملف القديم حتى تظهر النتائج المحدثة للطلبة.</div><div id="status-msg" class="status-msg"></div></div></div></div>
+  <div class="tabs" id="tabs"></div>
+  <div id="app"></div>
 
   <footer>POWERED BY MARIA</footer>
 </div>
 
-<script id="data-store" type="application/json">{"weeks":{"2":{"date":"2027-09-28","design":{"اسامة سعد":4,"اسلام عمار":4,"طيبة إسماعيل":4,"عبد الملك":4},"threeds":{}}}}</script>
+<div class="print-only" id="print-report"></div>
+
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database-compat.js"></script>
 
 <script>
 (function(){
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDd8khuXLM8zne8FTq72v4E4ebnSeJPeg4",
+    authDomain: "attendance-samarra.firebaseapp.com",
+    databaseURL: "https://attendance-samarra-default-rtdb.firebaseio.com/",
+    projectId: "attendance-samarra",
+    storageBucket: "attendance-samarra.firebasestorage.app",
+    messagingSenderId: "158531690965",
+    appId: "1:158531690965:web:13cf5692ae76b3e8d55d5c"
+  };
+
+  let db = null;
+  try{
+    firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+  }catch(e){ console.error('Firebase init failed', e); db = null; }
 
   const COURSES = [
     { id:'design', name:'التصميم المعماري', sessions:[
@@ -280,10 +307,9 @@
     "وليد قاسم"
   ];
 
-  const dataEl = document.getElementById('data-store');
-  let DATA;
-  try { DATA = JSON.parse(dataEl.textContent); } catch(e){ DATA = {weeks:{}}; }
-  if(!DATA.weeks) DATA.weeks = {};
+  let DATA = { weeks: {} };
+  let selectedWeek = '1';
+  let dataLoaded = false;
 
   document.getElementById('tb-count').textContent = STUDENTS.length;
 
@@ -347,19 +373,17 @@
     render();
   }
 
-  function downloadUpdatedFile(){
-    dataEl.textContent = JSON.stringify(DATA);
-    const html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
-    const blob = new Blob([html], {type:'text/html'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'index.html';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url), 2000);
-    setStatus('تم إنشاء نسخة محدثة (index.html) — ارفعها إلى GitHub لتستبدل الملف القديم.', 'ok');
+  function saveWeek(w, rec){
+    if(!db){
+      setStatus('تعذر الاتصال بقاعدة البيانات — تأكد من الإنترنت وحاول من جديد.', 'err');
+      return;
+    }
+    setStatus('جارٍ الحفظ…', '');
+    db.ref('weeks/'+w).set(rec).then(()=>{
+      setStatus('تم الحفظ — التحديث يظهر للطلبة فوراً.', 'ok');
+    }).catch(err=>{
+      setStatus('تعذر الحفظ: '+err.message, 'err');
+    });
   }
 
   function setStatus(msg, cls){
@@ -367,6 +391,32 @@
     if(!el) return;
     el.textContent = msg;
     el.className = 'status-msg ' + (cls||'');
+  }
+
+  function buildPrintReport(){
+    const today = new Date().toLocaleDateString('ar-EG');
+    let html = '<div style="font-family:Arial, sans-serif; padding:24px; direction:rtl;">';
+    html += '<h1 style="text-align:center;margin-bottom:4px;">تقرير غيابات الطلبة</h1>';
+    html += '<p style="text-align:center;margin:0 0 4px;">قسم هندسة العمارة — جامعة سامراء — المرحلة الثالثة — العام الدراسي 2026-2027</p>';
+    html += '<p style="text-align:center;margin:0 0 18px;font-size:12px;color:#555;">تاريخ إصدار التقرير: '+today+'</p>';
+    html += '<table style="width:100%;border-collapse:collapse;font-size:13px;" border="1" cellpadding="6">';
+    html += '<thead><tr style="background:#173350;color:#fff;"><th>#</th><th>الاسم</th>' +
+      COURSES.map(c=>'<th>'+c.name+'</th>').join('') + '</tr></thead><tbody>';
+    STUDENTS.forEach((s,i)=>{
+      const st = statsFor(s);
+      html += '<tr><td style="text-align:center;">'+(i+1)+'</td><td>'+s+'</td>' +
+        COURSES.map(c=>'<td style="text-align:center;">'+st[c.id].pct.toFixed(1)+'%</td>').join('') +
+        '</tr>';
+    });
+    html += '</tbody></table>' +
+      '<p style="margin-top:24px;font-size:11px;color:#777;">النسب محسوبة من إجمالي ساعات الفصل الدراسي (15 أسبوعاً). حد الفصل بالغياب: 15%.</p>' +
+      '</div>';
+    return html;
+  }
+
+  function printReport(){
+    document.getElementById('print-report').innerHTML = buildPrintReport();
+    window.print();
   }
 
   // ---------- rendering ----------
@@ -475,6 +525,12 @@
     const panel = document.createElement('div');
     panel.className = 'panel';
     panel.innerHTML = '<h2>سجل جميع الطلبة</h2><p class="hint">النسب محسوبة من إجمالي ساعات الفصل الدراسي (15 أسبوعاً).</p>';
+    const printBtn = document.createElement('button');
+    printBtn.className = 'btn secondary';
+    printBtn.style.marginBottom = '12px';
+    printBtn.textContent = '🖨️ طباعة / تصدير التقرير PDF';
+    printBtn.onclick = printReport;
+    panel.appendChild(printBtn);
     const search = document.createElement('input');
     search.type = 'text';
     search.placeholder = 'تصفية بالاسم…';
@@ -489,12 +545,12 @@
       const rows = STUDENTS.filter(s => !filter || s.includes(filter));
       let html = '<table><thead><tr><th>#</th><th>الاسم</th>' +
         COURSES.map(c=>'<th>'+c.name+'</th>').join('') +
-        '<th>الإجمالي</th></tr></thead><tbody>';
+        '</tr></thead><tbody>';
       rows.forEach((s, i)=>{
         const st = statsFor(s);
         html += '<tr><td style="color:var(--ink-soft);font-family:\'IBM Plex Mono\',monospace;">'+(STUDENTS.indexOf(s)+1)+'</td><td>'+s+'</td>' +
           COURSES.map(c=>'<td>'+pillHtml(st[c.id].pct)+'</td>').join('') +
-          '<td>'+pillHtml(st.overall.pct)+'</td></tr>';
+          '</tr>';
       });
       html += '</tbody></table>';
       tableWrap.innerHTML = html;
@@ -531,12 +587,10 @@
     panel.className = 'panel';
     panel.innerHTML = '<h2>تسجيل غيابات أسبوع</h2><p class="hint">اختر الأسبوع، أدخل التاريخ، وأدخل عدد ساعات الغياب لكل طالب بكل مادة (تُترك 0 لمن حضر كامل الوقت)، ثم احفظ.</p>';
 
-    const currentWeek = { value: '1' };
-
     const fieldRow = document.createElement('div');
     fieldRow.className = 'row2';
     fieldRow.innerHTML =
-      '<div class="field"><label>الأسبوع</label><select id="week-select">'+weekOptions(1)+'</select></div>'+
+      '<div class="field"><label>الأسبوع</label><select id="week-select">'+weekOptions(selectedWeek)+'</select></div>'+
       '<div class="field"><label>التاريخ</label><input type="date" id="week-date"></div>';
     panel.appendChild(fieldRow);
 
@@ -549,14 +603,14 @@
     btnRow.style.marginTop = '6px';
     const saveBtn = document.createElement('button');
     saveBtn.className = 'btn';
-    saveBtn.textContent = 'حفظ وتنزيل الملف المحدث';
+    saveBtn.textContent = 'حفظ';
     btnRow.appendChild(saveBtn);
     panel.appendChild(btnRow);
 
     const note = document.createElement('div');
     note.className = 'locked-note';
     note.style.marginTop = '12px';
-    note.innerHTML = 'بعد الحفظ سينزّل المتصفح ملف <b>index.html</b> جديد يحتوي كل البيانات (القديمة + الجديدة). ارفعه إلى مستودع GitHub لتستبدل الملف القديم حتى تظهر النتائج المحدثة للطلبة.';
+    note.innerHTML = 'الحفظ مباشر بقاعدة بيانات حية — ما تحتاج تنزيل أو رفع أي ملف، الطلبة يشوفون النتيجة فوراً بعد الحفظ.';
     panel.appendChild(note);
 
     const statusMsg = document.createElement('div');
@@ -586,10 +640,11 @@
       });
     }
 
-    loadWeek(1);
+    loadWeek(selectedWeek);
 
     panel.querySelector('#week-select').addEventListener('change', (e)=>{
-      loadWeek(e.target.value);
+      selectedWeek = e.target.value;
+      loadWeek(selectedWeek);
     });
 
     saveBtn.addEventListener('click', ()=>{
@@ -607,17 +662,25 @@
           if(v > 0) rec[cid][inp.dataset.student] = v;
         });
       });
-      DATA.weeks[w] = rec;
-      downloadUpdatedFile();
+      saveWeek(w, rec);
     });
 
     wrap.appendChild(panel);
     return wrap;
   }
 
+  if(db){
+    db.ref('weeks').on('value', (snapshot)=>{
+      DATA.weeks = snapshot.val() || {};
+      dataLoaded = true;
+      render();
+    }, (err)=>{
+      console.error('Firebase read failed', err);
+    });
+  }
+
   render();
 })();
 </script>
-
-
-</body></html>
+</body>
+</html>
