@@ -21,8 +21,8 @@
     --neutral:#c8cdd3;
     --green:#3f8d5d;
     --green-bg:#e4f2e9;
-    --yellow:#b8912a;
-    --yellow-bg:#fbf1dc;
+    --yellow:#c9741f;
+    --yellow-bg:#fdebd7;
     --red:#b8402f;
     --red-bg:#fbe6e2;
     --darkgray:#3a3f47;
@@ -42,7 +42,7 @@
       --border:#2a3341;
       --neutral:#333c48;
       --green-bg:#173325;
-      --yellow-bg:#332b12;
+      --yellow-bg:#3a2a14;
       --red-bg:#361c17;
       --darkgray-bg:#252a31;
     }
@@ -58,7 +58,7 @@
     --border:#2a3341;
     --neutral:#333c48;
     --green-bg:#173325;
-    --yellow-bg:#332b12;
+    --yellow-bg:#3a2a14;
     --red-bg:#361c17;
     --darkgray-bg:#252a31;
   }
@@ -300,10 +300,10 @@
 
   const STUDENTS = [
     "آية باسم","احمد حسن","اسامة سعد","اسلام عمار","الحسن عدي","تقى وليد",
-    "حذيفة محمد","حسين حامد","حنين خضير","زينب جمال","سارا طلال","سبأ نافع",
+    "حذيفة محمد","حسين حامد","حنين خضير","خاطر ياسر","زينب جمال","سارا طلال","سبأ نافع",
     "سما محمد","صفا عدي","طيبة إسماعيل","عبد الملك","علي احمد عبد المنعم",
     "علي واثق","عمر حاضر","فاطمة بهاء","مازن حامد","محمد عمر","مصطفى حافظ",
-    "مصطفى محمد","ملاك غسان","مهند صباح","مهيب فاضل","هاجر حيدر","هيثم زهير",
+    "مصطفى محمد","ملاك غسان","مهند صباح","مهيب فاضل","ميس محمد عبد الزراق","هاجر حيدر","هيثم زهير",
     "وليد قاسم"
   ];
 
@@ -331,11 +331,11 @@
   function pct(hrs, total){ return total>0 ? (hrs/total*100) : 0; }
 
   function band(p){
-    if(p < 5)  return {key:'none',   label:'ضمن الحدود الطبيعية', color:'var(--ink-soft)', bg:'transparent'};
-    if(p < 8)  return {key:'green',  label:'تنبيه أول',            color:'var(--green)',    bg:'var(--green-bg)'};
-    if(p < 10) return {key:'yellow', label:'تنبيه ثانٍ',           color:'var(--yellow)',   bg:'var(--yellow-bg)'};
-    if(p < 15) return {key:'red',    label:'إنذار',                color:'var(--red)',      bg:'var(--red-bg)'};
-    return       {key:'gray',  label:'مفصول بالغياب',        color:'var(--darkgray)', bg:'var(--darkgray-bg)'};
+    if(p < 5)  return {key:'none',   label:'ضمن الحدود الطبيعية', color:'var(--ink-soft)', bg:'transparent', tint:'transparent'};
+    if(p < 8)  return {key:'green',  label:'تنبيه أول',            color:'var(--green)',    bg:'var(--green-bg)', tint:'rgba(63,141,93,.22)'};
+    if(p < 10) return {key:'yellow', label:'تنبيه ثانٍ',           color:'var(--yellow)',   bg:'var(--yellow-bg)', tint:'rgba(240,150,50,.28)'};
+    if(p < 15) return {key:'red',    label:'إنذار',                color:'var(--red)',      bg:'var(--red-bg)', tint:'rgba(184,64,47,.25)'};
+    return       {key:'gray',  label:'مفصول بالغياب',        color:'var(--darkgray)', bg:'var(--darkgray-bg)', tint:'rgba(58,63,71,.35)'};
   }
 
   function statsFor(student){
@@ -405,7 +405,7 @@
     STUDENTS.forEach((s,i)=>{
       const st = statsFor(s);
       html += '<tr><td style="text-align:center;">'+(i+1)+'</td><td>'+s+'</td>' +
-        COURSES.map(c=>'<td style="text-align:center;">'+st[c.id].pct.toFixed(1)+'%</td>').join('') +
+        COURSES.map(c=>'<td style="text-align:center;background:'+band(st[c.id].pct).tint+';-webkit-print-color-adjust:exact;print-color-adjust:exact;">'+st[c.id].pct.toFixed(1)+'%</td>').join('') +
         '</tr>';
     });
     html += '</tbody></table>' +
@@ -415,6 +415,7 @@
   }
 
   function printReport(){
+    if(!canEdit) return;
     document.getElementById('print-report').innerHTML = buildPrintReport();
     window.print();
   }
@@ -525,12 +526,14 @@
     const panel = document.createElement('div');
     panel.className = 'panel';
     panel.innerHTML = '<h2>سجل جميع الطلبة</h2><p class="hint">النسب محسوبة من إجمالي ساعات الفصل الدراسي (15 أسبوعاً).</p>';
-    const printBtn = document.createElement('button');
-    printBtn.className = 'btn secondary';
-    printBtn.style.marginBottom = '12px';
-    printBtn.textContent = '🖨️ طباعة / تصدير التقرير PDF';
-    printBtn.onclick = printReport;
-    panel.appendChild(printBtn);
+    if(canEdit){
+      const printBtn = document.createElement('button');
+      printBtn.className = 'btn secondary';
+      printBtn.style.marginBottom = '12px';
+      printBtn.textContent = '🖨️ طباعة / تصدير التقرير PDF';
+      printBtn.onclick = printReport;
+      panel.appendChild(printBtn);
+    }
     const search = document.createElement('input');
     search.type = 'text';
     search.placeholder = 'تصفية بالاسم…';
@@ -549,7 +552,7 @@
       rows.forEach((s, i)=>{
         const st = statsFor(s);
         html += '<tr><td style="color:var(--ink-soft);font-family:\'IBM Plex Mono\',monospace;">'+(STUDENTS.indexOf(s)+1)+'</td><td>'+s+'</td>' +
-          COURSES.map(c=>'<td>'+pillHtml(st[c.id].pct)+'</td>').join('') +
+          COURSES.map(c=>'<td style="background:'+band(st[c.id].pct).tint+'">'+pillHtml(st[c.id].pct)+'</td>').join('') +
           '</tr>';
       });
       html += '</tbody></table>';
